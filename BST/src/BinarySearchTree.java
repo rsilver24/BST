@@ -30,7 +30,27 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     //sets left/right or creates a new node appropriately, returns the
     //modified node n
     private Node<Key, Value> put(Node<Key, Value> n, Key key, Value val) {
-
+        n.setKey(key);
+        n.setValue(val);
+        Node cur = root;
+        for (int i = 0; i < root.getSize()-1; i++){
+            if (cur.getKey().hashCode() == key.hashCode()){
+                cur.getLeft().setRight(n);
+                n.setLeft(cur.getLeft());
+                cur.getRight().setLeft(n);
+                n.setRight(cur.getRight());
+                return n;
+            } if (key.hashCode() > cur.getKey().hashCode() && key.hashCode() < cur.getRight().getKey().hashCode()){
+                cur.getRight().setLeft(n);
+                n.setRight(cur.getRight());
+                cur.setRight(n);
+                n.setLeft(cur);
+                return n;
+            }
+            cur = cur.getRight();
+        } cur.setRight(n);
+        n.setLeft(cur);
+        return n;
     }
 
     //recursive get wrapper
