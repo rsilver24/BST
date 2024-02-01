@@ -62,7 +62,17 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     //recursive get
     //returns null if the key does not exist
     private Value get(Node<Key, Value> n, Key key) {
-
+        if (key.hashCode() == n.getKey().hashCode()){
+            return n.getValue();
+        } else if (key.hashCode() > n.getKey().hashCode()){
+            if (n.getRight() == null){
+                return null;
+            } return get(n.getRight(), key);
+        } else if (key.hashCode() < n.getKey().hashCode()){
+            if (n.getLeft() == null){
+                return null;
+            } return get(n.getLeft(), key);
+        } return null;
     }
 
     public boolean contains(Key key) {
