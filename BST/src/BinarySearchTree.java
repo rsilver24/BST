@@ -14,7 +14,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         if (root == null){
             return 0;
         } else{
-            return 1;
+            return x.getSize();
         }
     }
 
@@ -42,16 +42,20 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
             return n;
         } else if (key.hashCode() > n.getKey().hashCode()){
             if (n.getRight() == null){
-                Node newNode = new Node(key, val, 0);
+                Node newNode = new Node(key, val, 1);
                 n.setRight(newNode);
+                n.setSize(n.getSize() + 1);
                 return newNode;
-            } return put(n.getRight(), key, val);
+            } n.setSize(n.getSize() + 1);
+            return put(n.getRight(), key, val);
         } else if (key.hashCode() < n.getKey().hashCode()){
             if (n.getLeft() == null){
-                Node newNode = new Node(key, val, 0);
+                Node newNode = new Node(key, val, 1);
                 n.setLeft(newNode);
+                n.setSize(n.getSize() + 1);
                 return newNode;
-            } return put(n.getLeft(), key, val);
+            } n.setSize(n.getSize() + 1);
+            return put(n.getLeft(), key, val);
         } return null;
     }
 
